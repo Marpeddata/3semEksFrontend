@@ -1,4 +1,3 @@
-//const URL = "http://localhost:8080/carbon2count";
 const URL = "http://localhost:8080/dinnerevent";
 
 
@@ -68,6 +67,17 @@ function readJwtToken (token) {
     return JSON.parse(jsonPayload);
 }
 
+const getAllEvents = (setEvents) => {
+    fetch(URL + "/api/dinner")
+    .then(res => res.json())
+    .then(data => {
+      setEvents(data);
+    })
+}
+
+
+
+
 
 
   return {
@@ -79,7 +89,7 @@ function readJwtToken (token) {
       logout,
       fetchData,
       readJwtToken,
-      
+      getAllEvents,
   }
  }
 
