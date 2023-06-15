@@ -75,6 +75,39 @@ const getAllEvents = (setEvents) => {
     })
 }
 
+const addEvent = (event) => {
+  fetch(URL + "/api/dinner/add", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(event),
+  })
+  .then((res) => res.json())
+  .catch((error) => console.log(error));
+}
+
+const getAllUsers = (setAllUsers) => {
+  fetch(URL + "/api/users")
+  .then(res => res.json())
+    .then(data => {
+      setAllUsers(data);
+    })
+  }
+
+  const createReservation = (reservation, eventId) => {
+    fetch(URL + "/api/assignment/createAssignment/" + eventId, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reservation),
+    })
+    .then((res) => res.json())
+    .catch((error) => console.log(error));
+  }
+  
+
 
 
 
@@ -90,6 +123,9 @@ const getAllEvents = (setEvents) => {
       fetchData,
       readJwtToken,
       getAllEvents,
+      addEvent,
+      getAllUsers,
+      createReservation,
   }
  }
 

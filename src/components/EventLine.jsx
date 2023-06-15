@@ -1,12 +1,16 @@
 import React from 'react'
 import {Button } from 'react-bootstrap';
+import ApiFacade from '../apiFacade';
 
 
 
-const EventLine = ({key,event, user}) => {
+const EventLine = ({key,event, reservation}) => {
 
 
-
+const clicked = (reservation) => {
+    ApiFacade.createReservation(reservation, event.id)
+    console.log(event.id)
+}
     
   return (
     <tr key={key}>
@@ -15,7 +19,7 @@ const EventLine = ({key,event, user}) => {
       <td>{event.time}</td>
       <td>{event.pricePrPerson}</td>
       <td>{event.assignmentIds}</td>
-      <td>{<Button onClick = {{/*() =>ApiFacade.addUserToTrip({username: user.username, tripId: trip.tripId})*/}}>Sign Up</Button>}</td>
+      <td>{<Button onClick = {() => clicked(reservation)}>Sign Up</Button>}</td>
 
     
       

@@ -3,18 +3,28 @@ import {useState, useEffect} from 'react'
 import ApiFacade from '../apiFacade' 
 import EventLine from './EventLine'
 import { Table} from 'react-bootstrap';
+import AddReservation from './AddReservation';
 
-const AllEvents = ({user}) => {
+const AllEvents = ({user, allEvents, setAllEvents, allUsers, setAllUsers}) => {
   
-  const [allEvents, setAllEvents] = useState([])
+    const initialValue= {
+        familyName: "",
+        contactInfo: "",
+        userDTOList: [] 
+    }
+
+    const [reservation, setReservation] = useState(initialValue)
   
   useEffect(() => {
     ApiFacade.getAllEvents(setAllEvents)
+    ApiFacade.getAllUsers(setAllUsers)
   }, [])
 
     return (
     <div>
       
+    <AddReservation allUsers={allUsers} reservation={reservation} setReservation={setReservation}/>
+
       <Table bordered hover>
         <thead>
           <tr>
@@ -29,7 +39,7 @@ const AllEvents = ({user}) => {
         <tbody>
           
             {allEvents.map((event) => {
-                return <EventLine key={event.tripId} event={event} user={user}  />;
+                return <EventLine key={event.Id} event={event} user={user} reservation={reservation}  />;
             })}
             
             
